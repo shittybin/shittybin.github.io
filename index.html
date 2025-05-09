@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BrainRot Sigma Dev Hub</title>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+        .glitch-hover:hover {
+            animation: glitch 0.3s linear infinite;
+        }
+        .marquee {
+            animation: marquee 20s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .neu-brutal {
+            box-shadow: 5px 5px 0px 0px #000000;
+            border: 3px solid #000000;
+        }
+        .terminal {
+            font-family: 'VT323', monospace;
+        }
+        body {
+            background-color: #0a0a0a;
+            font-family: 'Press Start 2P', cursive;
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='10' cy='10' r='5' fill='%23ff00ff'/%3E%3C/svg%3E"), auto;
+        }
+    </style>
+</head>
+<body class="text-white">
+    <div class="overflow-hidden whitespace-nowrap bg-purple-700 p-2">
+        <div class="marquee inline-block">
+            >> i am become dev, destroyer of bugs >> Code. Sleep. Win. Repeat. >> 404: Motivation Not Found >>
+        </div>
+    </div>
+
+    <nav class="bg-black p-4 neu-brutal">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-neon-pink">BrainRot.dev</h1>
+            <div class="space-x-4">
+                <button onclick="toggleTheme()" class="glitch-hover bg-yellow-400 text-black p-2 neu-brutal">🌙 Toggle Theme</button>
+                <button onclick="playSound()" class="glitch-hover bg-green-400 text-black p-2 neu-brutal">🔊 Make Noise</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto p-4">
+        <section id="about" class="mb-12 p-6 bg-purple-900 neu-brutal">
+            <h2 class="text-3xl mb-4 text-green-400">🧠 About Us</h2>
+            <p class="font-mono text-xl mb-4">"Built by caffeine and deadlines."</p>
+            <p class="font-mono">We're a chaotic collective of devs who turn caffeine into code. Sometimes it works.</p>
+        </section>
+
+        <section id="projects" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-pink-600 p-4 neu-brutal glitch-hover">
+                <h3 class="text-xl mb-2">AI Brainrot Generator</h3>
+                <div class="flex gap-2 mb-2">
+                    <span class="bg-yellow-400 text-black px-2 text-sm neu-brutal">#won-first</span>
+                    <span class="bg-red-400 text-black px-2 text-sm neu-brutal">#brainrot</span>
+                </div>
+                <img src="https://source.unsplash.com/random/300x200?coding" alt="Project Preview" class="w-full mb-2 neu-brutal">
+                <div class="flex gap-2">
+                    <a href="#" class="bg-blue-400 text-black px-4 py-2 neu-brutal">Demo</a>
+                    <a href="#" class="bg-gray-800 text-white px-4 py-2 neu-brutal">GitHub</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="terminal" class="mt-12 p-4 bg-black neu-brutal">
+            <div class="terminal text-green-400">
+                <p class="mb-2">$ Welcome to BrainRot Terminal v1.0</p>
+                <div class="flex">
+                    <span class="mr-2">$</span>
+                    <input type="text" id="terminalInput" class="bg-transparent border-none outline-none flex-1" placeholder="Type 'help' for commands...">
+                </div>
+            </div>
+        </section>
+
+        <section id="newsletter" class="mt-12 p-6 bg-blue-900 neu-brutal">
+            <h2 class="text-2xl mb-4">💌 Subscribe to Brainrot</h2>
+            <p class="mb-4">"Sign up to get reminded of our next brainrot moment."</p>
+            <div class="flex gap-2">
+                <input type="email" placeholder="your@email.com" class="p-2 bg-black text-white neu-brutal">
+                <button class="bg-green-400 text-black px-4 py-2 neu-brutal glitch-hover">Subscribe</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-black p-4 mt-12 text-center neu-brutal">
+        <p>Made with 💀 and ☕</p>
+    </footer>
+
+    <script>
+        // Konami Code Easter Egg
+        const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        let konamiIndex = 0;
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === konamiCode[konamiIndex]) {
+                konamiIndex++;
+                if (konamiIndex === konamiCode.length) {
+                    confetti({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: { y: 0.6 }
+                    });
+                    konamiIndex = 0;
+                }
+            } else {
+                konamiIndex = 0;
+            }
+        });
+
+        // Terminal functionality
+        const terminalInput = document.getElementById('terminalInput');
+        terminalInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const command = e.target.value.toLowerCase();
+                const terminal = document.querySelector('.terminal');
+                const response = document.createElement('p');
+                response.classList.add('mb-2');
+
+                switch(command) {
+                    case 'help':
+                        response.textContent = '$ Available commands: help, about, projects, meme';
+                        break;
+                    case 'meme':
+                        response.textContent = '$ 🤡 Why do programmers prefer dark mode? Because light attracts bugs!';
+                        break;
+                    default:
+                        response.textContent = `$ Command not found: ${command}`;
+                }
+
+                terminal.insertBefore(response, terminalInput.parentElement);
+                e.target.value = '';
+            }
+        });
+
+        // Random toast notifications
+        const notifications = [
+            "Someone just rage quit coding 💀",
+            "Another PR merged ✨",
+            "Coffee machine broke 😱",
+            "Bug fixed itself 🤔"
+        ];
+
+        setInterval(() => {
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-4 right-4 bg-purple-600 p-4 neu-brutal animation-bounce';
+            toast.textContent = notifications[Math.floor(Math.random() * notifications.length)];
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }, 10000);
+
+        // Theme toggle
+        function toggleTheme() {
+            document.body.classList.toggle('bg-white');
+            document.body.classList.toggle('text-black');
+        }
+
+        // Sound effects
+        function playSound() {
+            const audio = new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodHglWI2PmWn3PSiaTc3Xp3Q8bCJVkVQg77iqcWzhXBwi9T0lVhGT47B7pevkHtweZDO9nxKUGib0/Tn0McGCw0RBgQOBQkTERgWBwkNDxMRCQwOEBUQDxEQDw8OCwkJCwwODwwKCgsNDQ0LCAcICQoLCQYFBgcHBwYDAgMDBAQDAQEBAQICAgEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQAAAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQ==');
+            audio.play();
+        }
+
+        // Easter egg click counter
+        let clickCount = 0;
+        document.addEventListener('click', () => {
+            clickCount++;
+            if (clickCount === 10) {
+                const egg = document.createElement('img');
+                egg.src = 'https://source.unsplash.com/random/100x100?meme';
+                egg.style.position = 'fixed';
+                egg.style.bottom = '20px';
+                egg.style.left = '20px';
+                egg.className = 'neu-brutal';
+                document.body.appendChild(egg);
+                setTimeout(() => egg.remove(), 2000);
+                clickCount = 0;
+            }
+        });
+    </script>
+</body>
+</html>
