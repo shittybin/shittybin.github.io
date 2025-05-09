@@ -3,237 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShittyBin - Brain Rot Sigma Dev Hub</title>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Shittybin.exe 🧠</title>
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/howler@2.2.3/dist/howler.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @keyframes glitch {
-            0% { transform: translate(0) }
-            20% { transform: translate(-2px, 2px) }
-            40% { transform: translate(-2px, -2px) }
-            60% { transform: translate(2px, 2px) }
-            80% { transform: translate(2px, -2px) }
-            100% { transform: translate(0) }
+            0% { transform: translate(0); filter: hue-rotate(0deg); }
+            25% { transform: translate(-2px, 2px); filter: hue-rotate(90deg); }
+            50% { transform: translate(2px, -2px); filter: hue-rotate(180deg); }
+            75% { transform: translate(-2px, -2px); filter: hue-rotate(270deg); }
+            100% { transform: translate(0); filter: hue-rotate(360deg); }
         }
         .glitch-hover:hover {
-            animation: glitch 0.3s linear infinite;
-            text-shadow: 2px 2px #ff00ff, -2px -2px #00ffff;
+            animation: glitch 0.3s infinite;
         }
-        .neu-border {
-            border: 3px solid #000;
-            box-shadow: 5px 5px 0px #000;
-        }
-        .neu-button {
-            background: #fff;
-            border: 3px solid #000;
-            box-shadow: 5px 5px 0px #000;
-            transition: all 0.1s ease;
-        }
-        .neu-button:hover {
-            transform: translate(2px, 2px);
-            box-shadow: 3px 3px 0px #000;
-        }
-        .marquee {
-            animation: marquee 20s linear infinite;
-            white-space: nowrap;
-        }
-        @keyframes marquee {
-            0% { transform: translateX(100%) }
-            100% { transform: translateX(-100%) }
-        }
-        body {
-            font-family: 'Space Mono', monospace;
-            background-color: #0f0f0f;
-            color: #fff;
-            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='10' cy='10' r='5' fill='%23ff00ff'/%3E%3C/svg%3E"), auto;
+        .neo-brutalism {
+            box-shadow: 5px 5px 0px 0px #000000;
+            border: 3px solid #000000;
         }
         .terminal {
             font-family: 'VT323', monospace;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             padding: 20px;
             border-radius: 10px;
-            border: 2px solid #39ff14;
+            height: 300px;
+            overflow-y: auto;
         }
-        .title-font {
-            font-family: 'Press Start 2P', cursive;
+        .marquee {
+            white-space: nowrap;
+            animation: marquee 20s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .toast {
+            position: fixed;
+            animation: slideIn 0.5s ease-out;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+        body {
+            background-color: #0a0a0a;
+            color: #fff;
+            font-family: 'Space Mono', monospace;
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='10' cy='10' r='5' fill='%23ff00ff'/%3E%3C/svg%3E"), auto;
         }
     </style>
 </head>
-<body class="min-h-screen bg-[#0f0f0f]">
-    <div id="app" class="relative overflow-hidden">
-        <!-- Navigation -->
-        <nav class="fixed w-full z-50 bg-black/80 backdrop-blur-sm p-4">
-            <div class="flex justify-between items-center max-w-7xl mx-auto">
-                <h1 class="title-font text-xl text-[#39ff14]">ShittyBin.dev</h1>
-                <div class="space-x-6">
-                    <a href="#home" class="glitch-hover text-[#ff00ff]">Home</a>
-                    <a href="#projects" class="glitch-hover text-[#00ffff]">Projects</a>
-                    <a href="#about" class="glitch-hover text-[#ff00ff]">About</a>
-                    <button @click="toggleTerminal" class="neu-button px-4 py-2 text-black">Terminal</button>
-                </div>
-            </div>
-        </nav>
-    <!-- Marquee -->
-    <div class="overflow-hidden bg-[#1a1a1a] py-2">
-        <div class="marquee text-[#00ffff]">
-            >> i am become dev, destroyer of bugs >> code until you can't feel feelings anymore. ERORRR 404 Motivation not found! >> 
+<body class="bg-[#0a0a0a] text-white">
+    <!-- Marquee Text -->
+    <div class="overflow-hidden bg-[#ff00ff] text-black py-2">
+        <div class="marquee text-xl font-['Press_Start_2P']">
+            >> i am become dev, destroyer of bugs >> Code. Sleep. Win. Repeat. >> ERROR 404 motivation not found >>
         </div>
     </div>
-        <!-- Hero Section -->
-        <section id="home" class="pt-32 pb-20 px-4">
-            <div class="max-w-7xl mx-auto text-center">
-                <h1 class="title-font text-4xl md:text-6xl mb-6 glitch-hover text-[#39ff14]">Build. Burn. Ship. Repeat.</h1>
-                <p class="text-xl mb-8 text-[#ff00ff]">Showcasing projects born out of caffeine, chaos & 2AM sigma energy.</p>
-                <a href="#projects" class="neu-button inline-block px-8 py-4 text-xl text-black">View Projects 🚀</a>
-            </div>
-        </section>
 
-        <!-- Projects Section -->
-        <section id="projects" class="py-20 px-4">
-            <div class="max-w-7xl mx-auto">
-                <h2 class="title-font text-3xl mb-12 text-center text-[#00ffff]">Latest Brain Rot</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Project Cards -->
-                    <div v-for="project in projects" :key="project.id" class="neu-border bg-white text-black p-6 relative overflow-hidden">
-                        <div class="flex justify-between items-start mb-4">
-                            <h3 class="text-xl font-bold">{{ project.name }}</h3>
-                            <span class="bg-black text-white px-2 py-1 text-sm">{{ project.status }}</span>
-                        </div>
-                        <p class="mb-4">{{ project.description }}</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span v-for="tag in project.tags" :key="tag" class="bg-black text-white px-2 py-1 text-sm">#{{ tag }}</span>
-                        </div>
-                        <div class="flex gap-4">
-                            <a :href="project.github" class="neu-button px-4 py-2">GitHub</a>
-                            <a :href="project.demo" class="neu-button px-4 py-2">Demo</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+    <!-- Hero Section -->
+    <div class="container mx-auto px-4 py-20 text-center">
+        <h1 class="text-6xl md:text-8xl font-['Press_Start_2P'] mb-8 glitch-hover text-[#ff00ff]">
+            Build. Burn.<br>Ship. Repeat.
+        </h1>
+        <p class="text-xl md:text-2xl font-['VT323'] mb-8 text-[#00ff00]">
+            Showcasing projects born out of caffeine, chaos & 2AM sigma energy.
+        </p>
+        <div class="flex gap-4 justify-center mb-8">
+            <button onclick="makeUglySound()" class="neo-brutalism bg-[#ff00ff] text-black px-6 py-3 text-xl hover:translate-x-1 hover:translate-y-1 transition-transform">
+                🔊 Make Noise
+            </button>
+            <button onclick="toggleTerminal()" class="neo-brutalism bg-[#00ff00] text-black px-6 py-3 text-xl hover:translate-x-1 hover:translate-y-1 transition-transform">
+                👾 Terminal
+            </button>
+        </div>
+        
         <!-- Terminal -->
-        <div v-if="showTerminal" class="fixed bottom-0 right-0 w-full md:w-96 terminal z-50">
-            <div class="flex justify-between items-center mb-2">
-                <span class="text-[#39ff14]">root@ShittyBin:~$</span>
-                <button @click="toggleTerminal" class="text-red-500">×</button>
+        <div id="terminal" class="terminal hidden mb-8 mx-auto max-w-3xl neo-brutalism">
+            <div id="terminal-output" class="text-[#00ff00] mb-4"></div>
+            <div class="flex">
+                <span class="text-[#00ff00]">$ </span>
+                <input type="text" id="terminal-input" class="bg-transparent border-none outline-none text-[#00ff00] w-full ml-2" onkeypress="handleTerminalInput(event)">
             </div>
-            <div class="h-48 overflow-y-auto">
-                <div v-for="(line, index) in terminalOutput" :key="index" class="text-[#39ff14]">{{ line }}</div>
-            </div>
-            <input type="text" v-model="terminalInput" @keyup.enter="executeCommand" placeholder="Type a command..."
-                class="w-full bg-transparent text-[#39ff14] outline-none mt-2">
         </div>
-
-        <!-- Footer -->
-        <footer class="bg-black py-12 px-4">
-            <div class="max-w-7xl mx-auto text-center">
-                <p class="text-[#39ff14] mb-4">Made with 💀 by sleep deprived devs</p>
-                <div class="flex justify-center space-x-6">
-                    <a href="#" class="text-[#ff00ff] hover:text-[#00ffff]">GitHub</a>
-                    <a href="#" class="text-[#ff00ff] hover:text-[#00ffff]">Twitter</a>
-                    <a href="#" class="text-[#ff00ff] hover:text-[#00ffff]">Discord</a>
-                </div>
-            </div>
-        </footer>
     </div>
+
+    <!-- Projects Section -->
+    <div class="container mx-auto px-4 py-12">
+        <h2 class="text-4xl font-['Press_Start_2P'] text-[#00ff00] mb-8">Brain Rot Projects 🧠</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
+            <!-- Projects will be dynamically added here -->
+        </div>
+    </div>
+
+    <!-- Random Toast Container -->
+    <div id="toast-container" class="fixed top-4 right-4 z-50"></div>
 
     <script>
-        const { createApp } = Vue
+        // Sound Effects
+        const sounds = {
+            burp: new Howl({ src: ['https://www.soundjay.com/human/burp-1.mp3'] }),
+            glitch: new Howl({ src: ['https://www.soundjay.com/button/button-3.mp3'] }),
+            error: new Howl({ src: ['https://www.soundjay.com/button/button-10.mp3'] })
+        };
 
-        createApp({
-            data() {
-                return {
-                    showTerminal: false,
-                    terminalInput: '',
-                    terminalOutput: ['Welcome to ShittyBin.dev terminal v1.0.0', 'Type "help" for commands'],
-                    projects: [
-                        {
-                            id: 1,
-                            name: "AI Meme Generator",
-                            description: "Built in 12 hrs with 3 braincells and no sleep.",
-                            status: "💀 Crashed Twice",
-                            tags: ["AI", "Shitpost", "MemeTool"],
-                            github: "#",
-                            demo: "#"
-                        },
-                        {
-                            id: 2,
-                            name: "NFT Vibe Check",
-                            description: "When Web3 meets terminal aesthetics.",
-                            status: "🚀 Won 1st Place",
-                            tags: ["Web3", "Blockchain", "Sigma"],
-                            github: "#",
-                            demo: "#"
-                        },
-                        {
-                            id: 3,
-                            name: "Sigma Calculator",
-                            description: "Calculates your sigma grindset score.",
-                            status: "🎯 Featured",
-                            tags: ["ML", "Grindset", "AI"],
-                            github: "#",
-                            demo: "#"
-                        }
-                    ]
+        function makeUglySound() {
+            const soundKeys = Object.keys(sounds);
+            const randomSound = sounds[soundKeys[Math.floor(Math.random() * soundKeys.length)]];
+            randomSound.play();
+        }
+
+        // Terminal functionality
+        function toggleTerminal() {
+            const terminal = document.getElementById('terminal');
+            terminal.classList.toggle('hidden');
+        }
+
+        function handleTerminalInput(event) {
+            if (event.key === 'Enter') {
+                const input = event.target.value.toLowerCase();
+                const output = document.getElementById('terminal-output');
+                output.innerHTML += `<div>$ ${input}</div>`;
+                
+                if (input === 'projects') {
+                    output.innerHTML += `<div class="text-[#ff00ff]">🚀 Projects:</div>
+                        <div>- ShittybinAI (/Shittybinai)</div>
+                        <div>- ChaosEngine (/chaos)</div>
+                        <div>- MemeGenerator (/meme)</div>`;
+                } else if (input === 'sudo rm -rf sanity') {
+                    document.body.style.transform = 'rotate(180deg)';
+                    setTimeout(() => document.body.style.transform = '', 2000);
                 }
+                
+                event.target.value = '';
+            }
+        }
+
+        // Random brain rot messages
+        const ShittybinMessages = [
+            "🐛 Bug found... Bug fixed itself?!",
+            "💀 Someone just rage quit coding",
+            "🚀 Another PR merged without testing",
+            "🤖 AI took over the codebase... jk",
+            "☕ Coffee level critical!"
+        ];
+
+        function showRandomToast() {
+            const message = ShittybinMessages[Math.floor(Math.random() * ShittybinMessages.length)];
+            const toast = document.createElement('div');
+            toast.className = 'toast bg-[#ff00ff] text-black p-4 rounded neo-brutalism mb-4';
+            toast.textContent = message;
+            
+            document.getElementById('toast-container').appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+
+        // Show random toasts periodically
+        setInterval(showRandomToast, 5000);
+
+        // Mock projects data
+        const projects = [
+            {
+                name: "ShittybinAI",
+                description: "Built with 3 braincells at 3AM 🧠",
+                tags: ["#AI", "#NoSleep", "#Hackathon"],
+                status: "🚀 Won 1st Place"
             },
-            methods: {
-                toggleTerminal() {
-                    this.showTerminal = !this.showTerminal
-                },
-                executeCommand() {
-                    const command = this.terminalInput.toLowerCase()
-                    let response = ''
-
-                    switch(command) {
-                        case 'help':
-                            response = 'Available commands: help, projects, clear, sigma, exit'
-                            break
-                        case 'projects':
-                            response = 'Loading projects... Done! Check out our featured projects above!'
-                            break
-                        case 'clear':
-                            this.terminalOutput = []
-                            this.terminalInput = ''
-                            return
-                        case 'sigma':
-                            response = 'Calculating sigma level... Result: INFINITE ♾️'
-                            break
-                        case 'exit':
-                            this.showTerminal = false
-                            return
-                        default:
-                            response = `Command not found: ${command}. Type "help" for available commands.`
-                    }
-
-                    this.terminalOutput.push(`> ${command}`)
-                    this.terminalOutput.push(response)
-                    this.terminalInput = ''
-                }
+            {
+                name: "ChaosEngine",
+                description: "It works on my machine bro 💀",
+                tags: ["#Backend", "#Crashed", "#StillWorks"],
+                status: "💀 Crashed Twice"
+            },
+            {
+                name: "MemeGenerator",
+                description: "Your daily dose of copium 🎭",
+                tags: ["#Frontend", "#Memes", "#Art"],
+                status: "🎨 Best Design"
             }
-        }).mount('#app')
+        ];
 
-        // Easter egg: Konami Code
-        let konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
-        let konamiIndex = 0
+        // Render projects
+        function renderProjects() {
+            const grid = document.getElementById('projects-grid');
+            grid.innerHTML = projects.map(project => `
+                <div class="neo-brutalism bg-[#1a1a1a] p-6 hover:transform hover:translate-x-2 hover:translate-y-2 transition-transform">
+                    <h3 class="text-2xl font-['Press_Start_2P'] text-[#ff00ff] mb-4">${project.name}</h3>
+                    <p class="text-[#00ff00] mb-4">${project.description}</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        ${project.tags.map(tag => `<span class="bg-[#ff00ff] text-black px-2 py-1 rounded">${tag}</span>`).join('')}
+                    </div>
+                    <div class="text-[#00ff00] font-bold">${project.status}</div>
+                </div>
+            `).join('');
+        }
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === konamiCode[konamiIndex]) {
-                konamiIndex++
-                if (konamiIndex === konamiCode.length) {
-                    document.body.style.transform = 'rotate(180deg)'
-                    setTimeout(() => {
-                        document.body.style.transform = 'none'
-                    }, 1000)
-                    konamiIndex = 0
-                }
-            } else {
-                konamiIndex = 0
-            }
-        })
+        renderProjects();
     </script>
 </body>
 </html>
