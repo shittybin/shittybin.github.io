@@ -183,8 +183,12 @@
 
         // Projects, Memes, and Help Commands
         const projects = [
-            "pr-poetry-bot",
-        ];
+    {
+        name: "pr-poetry-bot",
+        link: "https://github.com/yourusername/pr-poetry-bot",  // Replace with your actual link
+        message: "This bot crashed 3 times... just for fun! 💥"
+    }
+];
 
         const memes = [
             "Git commit: 'final_final_FINAL_version_really_this_time.js' 💀🧠",
@@ -211,18 +215,23 @@ Available Commands:
 ❓ help       - Display this help message
 `;
 
-        function handleCommand(input) {
-            switch (input) {
-                case "projects":
-                    return projects.join("\n");
-                case "meme":
-                    return memes[Math.floor(Math.random() * memes.length)];
-                case "help":
-                    return helpText;
-                default:
-                    return `Unknown command: "${input}". Type "help" to see available commands.`;
-            }
-        }
+function handleCommand(input) {
+  const command = input.trim().toLowerCase();
+
+  switch (command) {
+    case "projects":
+      return projects.map(project => 
+        `${project.name} - [Link](${project.link})\n${project.message}`
+      ).join("\n\n");
+    case "meme":
+      return memes[Math.floor(Math.random() * memes.length)];
+    case "help":
+      return helpText;
+    default:
+      return `Unknown command: "${command}". Type "help" to see available commands.`;
+  }
+}
+
 
         // Random brain rot messages
         function showRandomToast() {
