@@ -30,7 +30,44 @@
             padding: 20px;
             border-radius: 10px;
             height: 300px;
+            width: 400px;
             overflow-y: auto;
+            position: fixed;
+            bottom: 4%;
+            right: 4%;
+            z-index: 50;
+            color: #00ff00;
+            display: flex;
+            flex-direction: column;
+        }
+        .terminal-output {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin-bottom: 10px;
+            text-align: left; /* Align text to the left */
+        }
+        .terminal-input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #00ff00;
+            width: 100%;
+            font-family: 'VT323', monospace;
+            font-size: 16px;
+        }
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #ffffff;
+            font-size: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #555;
+        }
+        .close-button {
+            cursor: pointer;
+            font-size: 18px;
+            padding: 5px;
         }
         .marquee {
             white-space: nowrap;
@@ -39,14 +76,6 @@
         @keyframes marquee {
             0% { transform: translateX(100%); }
             100% { transform: translateX(-100%); }
-        }
-        .toast {
-            position: fixed;
-            animation: slideIn 0.5s ease-out;
-        }
-        @keyframes slideIn {
-            from { transform: translateY(-100%); }
-            to { transform: translateY(0); }
         }
         body {
             background-color: #0a0a0a;
@@ -58,7 +87,7 @@
 </head>
 <body class="bg-[#0a0a0a] text-white">
     <!-- Marquee Text -->
-    <div class="overflow-hidden bg-[#ff00ff] text-black py-2">
+    <div class="overflow-hidden bg-[#1f1f1f] text-black py-2">
         <div class="marquee text-xl font-['Press_Start_2P']">
             >> i am become dev, destroyer of bugs >> Code. Sleep. Win. Repeat. >> ERROR 404 motivation not found >>
         </div>
@@ -82,11 +111,15 @@
         </div>
 
         <!-- Terminal -->
-        <div id="terminal" class="terminal hidden fixed bottom-4 right-4 w-[400px] neo-brutalism z-50">
-            <div id="terminal-output" class="text-[#00ff00] mb-4"></div>
+        <div id="terminal" class="terminal hidden">
+            <div class="terminal-header">
+                <span>Shittybin.exe 🧠</span>
+                <span class="close-button" onclick="toggleTerminal()">❌</span>
+            </div>
+            <div id="terminal-output" class="terminal-output"></div>
             <div class="flex">
                 <span class="text-[#00ff00]">$ </span>
-                <input type="text" id="terminal-input" class="bg-transparent border-none outline-none text-[#00ff00] w-full ml-2" onkeypress="handleTerminalInput(event)">
+                <input type="text" id="terminal-input" class="terminal-input" onkeypress="handleTerminalInput(event)">
             </div>
         </div>
     </div>
@@ -187,7 +220,7 @@ Available Commands:
         function showRandomToast() {
             const message = memes[Math.floor(Math.random() * memes.length)];
             const toast = document.createElement('div');
-            toast.className = 'toast bg-[#ff00ff] text-black p-4 rounded neo-brutalism mb-2';
+            toast.className = 'toast bg-[#333333] text-white p-4 rounded mb-2';
             toast.innerText = message;
             document.getElementById('toast-container').appendChild(toast);
             
@@ -196,16 +229,17 @@ Available Commands:
 
         setInterval(showRandomToast, 10000); // Show toast every 10 seconds
 
-        // Load projects into grid
+        // Load projects into grid with simple design
         function loadProjects() {
             const projectsGrid = document.getElementById('projects-grid');
             projects.forEach(project => {
                 const projectDiv = document.createElement('div');
-                projectDiv.className = 'p-6 bg-[#00ff00] rounded-lg shadow-lg text-black';
+                projectDiv.className = 'p-6 bg-[#222222] rounded-lg shadow-md text-black';
                 projectDiv.innerHTML = `
-                    <h3 class="text-2xl font-bold mb-2 glitch-hover text-[#ff00ff]">${project}</h3>
+                    <h3 class="text-2xl font-bold mb-2 text-[#00ff00]">${project}</h3>
                     <div class="flex gap-2">
-                        <span class="text-sm text-[#00ff00]">Status: Ongoing</span>
+                        <button class="bg-[#ff00ff] text-black px-4 py-2 rounded hover:bg-[#ff00cc] transition">Explore</button>
+                        <button class="bg-[#00ff00] text-black px-4 py-2 rounded hover:bg-[#00cc00] transition">Clone</button>
                     </div>
                 `;
                 projectsGrid.appendChild(projectDiv);
