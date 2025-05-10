@@ -79,11 +79,10 @@
             <button onclick="toggleTerminal()" class="neo-brutalism bg-[#00ff00] text-black px-6 py-3 text-xl hover:translate-x-1 hover:translate-y-1 transition-transform">
                 👾 Terminal
             </button>
-                        
         </div>
-        
+
         <!-- Terminal -->
-       <div id="terminal" class="terminal hidden fixed bottom-4 right-4 w-[400px] neo-brutalism z-50">
+        <div id="terminal" class="terminal hidden fixed bottom-4 right-4 w-[400px] neo-brutalism z-50">
             <div id="terminal-output" class="text-[#00ff00] mb-4"></div>
             <div class="flex">
                 <span class="text-[#00ff00]">$ </span>
@@ -91,7 +90,6 @@
             </div>
         </div>
     </div>
-
 
     <!-- Projects Section -->
     <div class="container mx-auto px-4 py-12">
@@ -126,187 +124,95 @@
 
         function handleTerminalInput(event) {
             if (event.key === 'Enter') {
-                const input = event.target.value.toLowerCase();
+                const input = event.target.value.trim().toLowerCase();
                 const output = document.getElementById('terminal-output');
                 output.innerHTML += `<div>$ ${input}</div>`;
                 
-                if (input === 'projects') {
-                    output.innerHTML += `<div class="text-[#ff00ff]">🚀 Projects:</div>
-                        <div>- ShittybinAI (/Shittybinai)</div>
-                        <div>- ChaosEngine (/chaos)</div>
-                        <div>- MemeGenerator (/meme)</div>`;
-                } else if (input === 'sudo rm -rf sanity') {
-                    document.body.style.transform = 'rotate(180deg)';
-                    setTimeout(() => document.body.style.transform = '', 2000);
-                }
+                const commandResult = handleCommand(input);
+                output.innerHTML += `<div>${commandResult}</div>`;
                 
                 event.target.value = '';
+                output.scrollTop = output.scrollHeight; // Auto-scroll to the bottom
+            }
+        }
+
+        // Projects, Memes, and Help Commands
+        const projects = [
+            "🌌 AGN Analysis",
+            "🧪 Quantum Tomography",
+            "🔭 Green Pea Galaxy Classification",
+            "🧠 ML Model: AGN Evolution",
+            "📈 M-sigma Relation Plotter"
+        ];
+
+        const memes = [
+            "Git commit: 'final_final_FINAL_version_really_this_time.js' 💀🧠",
+            "Tried fixing a bug, now it's a feature and a religion 🔧🙏",
+            "Stack Overflow is my co-pilot, and it's drunk 👨‍✈️🍷",
+            "I don’t write code. I summon demons and debug them 😈🪲",
+            "Brain: dead. Model: overfitted. Dataset: cursed. ☠️📊",
+            "You either die a junior dev or live long enough to write your own framework 🧓💻",
+            "The model trains for 4 hours... and predicts potatoes 🥔🧠",
+            "Debugger: not helping. Rubber duck: judging me. 🦆🫣",
+            "My loss function found me... and it’s personal now 🔥📉",
+            "If (life === bugs) { coffee++ } ☕💻",
+            "Tried a new optimizer. Model achieved sentience instead 🤖🚨",
+            "RNNs remember more than I do during exams 📚😩",
+            "Docker container won’t start. Neither will I. 🐳💤",
+            "This isn’t machine learning. This is machine coping 🧠🫠",
+            "I gave my AI too much data. It unionized. ✊🤖"
+        ];
+
+        const helpText = `
+Available Commands:
+📁 projects  - Show all repositories/projects
+🧠 meme      - Get a random brain-rot tech meme
+❓ help       - Display this help message
+`;
+
+        function handleCommand(input) {
+            switch (input) {
+                case "projects":
+                    return projects.join("\n");
+                case "meme":
+                    return memes[Math.floor(Math.random() * memes.length)];
+                case "help":
+                    return helpText;
+                default:
+                    return `Unknown command: "${input}". Type "help" to see available commands.`;
             }
         }
 
         // Random brain rot messages
-        const ShittybinMessages = [
-            "🐛 Bug found... Bug fixed itself?!",
-            "💀 Someone just rage quit coding",
-            "🚀 Another PR merged without testing",
-            "🤖 AI took over the codebase... jk",
-            "☕ Coffee level critical!"
-        ];
-
         function showRandomToast() {
-            const message = ShittybinMessages[Math.floor(Math.random() * ShittybinMessages.length)];
+            const message = memes[Math.floor(Math.random() * memes.length)];
             const toast = document.createElement('div');
-            toast.className = 'toast bg-[#ff00ff] text-black p-4 rounded neo-brutalism mb-4';
-            toast.textContent = message;
-            
+            toast.className = 'toast bg-[#ff00ff] text-black p-4 rounded neo-brutalism mb-2';
+            toast.innerText = message;
             document.getElementById('toast-container').appendChild(toast);
             
-            setTimeout(() => {
-                toast.remove();
-            }, 3000);
+            setTimeout(() => toast.remove(), 4000);
         }
 
-        // Show random toasts periodically
-        setInterval(showRandomToast, 5000);
+        setInterval(showRandomToast, 10000); // Show toast every 10 seconds
 
-        // Mock projects data
-        const projects = [
-            {
-                name: "ShittybinAI",
-                description: "Built with 3 braincells at 3AM 🧠",
-                tags: ["#AI", "#NoSleep", "#Hackathon"],
-                status: "🚀 Won 1st Place"
-            },
-            {
-                name: "ChaosEngine",
-                description: "It works on my machine bro 💀",
-                tags: ["#Backend", "#Crashed", "#StillWorks"],
-                status: "💀 Crashed Twice"
-            },
-            {
-                name: "MemeGenerator",
-                description: "Your daily dose of copium 🎭",
-                tags: ["#Frontend", "#Memes", "#Art"],
-                status: "🎨 Best Design"
-            }
-        ];
-
-        // Render projects
-        function renderProjects() {
-            const grid = document.getElementById('projects-grid');
-            grid.innerHTML = projects.map(project => `
-                <div class="neo-brutalism bg-[#1a1a1a] p-6 hover:transform hover:translate-x-2 hover:translate-y-2 transition-transform">
-                    <h3 class="text-2xl font-['Press_Start_2P'] text-[#ff00ff] mb-4">${project.name}</h3>
-                    <p class="text-[#00ff00] mb-4">${project.description}</p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        ${project.tags.map(tag => `<span class="bg-[#ff00ff] text-black px-2 py-1 rounded">${tag}</span>`).join('')}
-                    </div>
-                    <div class="text-[#00ff00] font-bold">${project.status}</div>
-                </div>
-            `).join('');
-        }
-
-        renderProjects();
-    </script>
-    <script>
-        // Projects data
-        const projects = [
-            {
-                name: "AI Brain Rot",
-                description: "Built in 12 hrs with 3 braincells and no sleep 💀",
-                tags: ["#AI", "#BrainRot", "#NoSleep"],
-                github: "https://github.com",
-                demo: "https://demo.com"
-            },
-            // Add more projects as needed
-        ];
-
-        // Random messages for notifications
-        const randomMessages = [
-            "Someone just rage quit coding 💀",
-            "Another PR merged ✨",
-            "Bug fixed itself 🤔",
-            "Brain.exe has stopped working",
-            "Coffee level: Critical ☕"
-        ];
-
-        // Terminal commands
-        const commands = {
-            help: "Available commands: help, projects, clear, meme",
-            projects: "Fetching projects...",
-            clear: "Clearing terminal...",
-            meme: "Generating random meme..."
-        };
-
-        // Initialize terminal
-        document.getElementById('terminal-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                const command = this.value.toLowerCase();
-                const output = commands[command] || "Command not found. Type 'help' for available commands";
-                document.getElementById('terminal-content').innerHTML += `<br>> ${this.value}<br>${output}`;
-                this.value = '';
-                playSound('keyboardSound');
-            }
-        });
-
-        // Functions
-        function toggleTerminal() {
-            const terminal = document.getElementById('terminal');
-            terminal.style.display = terminal.style.display === 'none' ? 'block' : 'none';
-        }
-
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.className = 'notification neu-border';
-            notification.textContent = message;
-            document.body.appendChild(notification);
-            setTimeout(() => notification.remove(), 3000);
-        }
-
-        function makeUglySound() {
-            playSound('burpSound');
-            showNotification("🔊 Noise activated!");
-        }
-
-        function playSound(soundId) {
-            const sound = document.getElementById(soundId);
-            sound.currentTime = 0;
-            sound.play();
-        }
-
-        function scrollToProjects() {
-            document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Random notifications
-        setInterval(() => {
-            const randomMessage = randomMessages[Math.floor(Math.random() * randomMessages.length)];
-            showNotification(randomMessage);
-        }, 10000);
-
-        // Initialize projects
-        function initProjects() {
-            const projectsContainer = document.querySelector('#projects .grid');
+        // Load projects into grid
+        function loadProjects() {
+            const projectsGrid = document.getElementById('projects-grid');
             projects.forEach(project => {
-                const card = document.createElement('div');
-                card.className = 'project-card neu-border bg-[#1a1a1a] p-6';
-                card.innerHTML = `
-                    <h3 class="text-2xl mb-4 text-[#0ff]">${project.name}</h3>
-                    <p class="mb-4">${project.description}</p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        ${project.tags.map(tag => `<span class="bg-[#ff00ff] text-black px-2 py-1 rounded">${tag}</span>`).join('')}
-                    </div>
-                    <div class="flex gap-4">
-                        <a href="${project.github}" class="neu-border bg-[#0ff] text-black px-4 py-2">GitHub</a>
-                        <a href="${project.demo}" class="neu-border bg-[#ff00ff] text-black px-4 py-2">Demo</a>
+                const projectDiv = document.createElement('div');
+                projectDiv.className = 'p-6 bg-[#00ff00] rounded-lg shadow-lg text-black';
+                projectDiv.innerHTML = `
+                    <h3 class="text-2xl font-bold mb-2 glitch-hover text-[#ff00ff]">${project}</h3>
+                    <div class="flex gap-2">
+                        <span class="text-sm text-[#00ff00]">Status: Ongoing</span>
                     </div>
                 `;
-                projectsContainer.appendChild(card);
+                projectsGrid.appendChild(projectDiv);
             });
         }
 
-        // Initialize
-        document.addEventListener('DOMContentLoaded', initProjects);
+        loadProjects();
     </script>
 </body>
 </html>
