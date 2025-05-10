@@ -79,6 +79,7 @@
             <button onclick="toggleTerminal()" class="neo-brutalism bg-[#00ff00] text-black px-6 py-3 text-xl hover:translate-x-1 hover:translate-y-1 transition-transform">
                 👾 Terminal
             </button>
+                        
         </div>
         
         <!-- Terminal -->
@@ -93,7 +94,7 @@
 
     <!-- Projects Section -->
     <div class="container mx-auto px-4 py-12">
-        <h2 class="text-4xl font-['Press_Start_2P'] text-[#00ff00] mb-8">Brain Rot Projects 🧠</h2>
+        <h2 class="text-4xl font-['Press_Start_2P'] text-[#00ff00] mb-8">Projects by Damage Brain</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
             <!-- Projects will be dynamically added here -->
         </div>
@@ -205,6 +206,106 @@
         }
 
         renderProjects();
+    </script>
+    <script>
+        // Projects data
+        const projects = [
+            {
+                name: "AI Brain Rot",
+                description: "Built in 12 hrs with 3 braincells and no sleep 💀",
+                tags: ["#AI", "#BrainRot", "#NoSleep"],
+                github: "https://github.com",
+                demo: "https://demo.com"
+            },
+            // Add more projects as needed
+        ];
+
+        // Random messages for notifications
+        const randomMessages = [
+            "Someone just rage quit coding 💀",
+            "Another PR merged ✨",
+            "Bug fixed itself 🤔",
+            "Brain.exe has stopped working",
+            "Coffee level: Critical ☕"
+        ];
+
+        // Terminal commands
+        const commands = {
+            help: "Available commands: help, projects, clear, meme",
+            projects: "Fetching projects...",
+            clear: "Clearing terminal...",
+            meme: "Generating random meme..."
+        };
+
+        // Initialize terminal
+        document.getElementById('terminal-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const command = this.value.toLowerCase();
+                const output = commands[command] || "Command not found. Type 'help' for available commands";
+                document.getElementById('terminal-content').innerHTML += `<br>> ${this.value}<br>${output}`;
+                this.value = '';
+                playSound('keyboardSound');
+            }
+        });
+
+        // Functions
+        function toggleTerminal() {
+            const terminal = document.getElementById('terminal');
+            terminal.style.display = terminal.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification neu-border';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+
+        function makeUglySound() {
+            playSound('burpSound');
+            showNotification("🔊 Noise activated!");
+        }
+
+        function playSound(soundId) {
+            const sound = document.getElementById(soundId);
+            sound.currentTime = 0;
+            sound.play();
+        }
+
+        function scrollToProjects() {
+            document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Random notifications
+        setInterval(() => {
+            const randomMessage = randomMessages[Math.floor(Math.random() * randomMessages.length)];
+            showNotification(randomMessage);
+        }, 10000);
+
+        // Initialize projects
+        function initProjects() {
+            const projectsContainer = document.querySelector('#projects .grid');
+            projects.forEach(project => {
+                const card = document.createElement('div');
+                card.className = 'project-card neu-border bg-[#1a1a1a] p-6';
+                card.innerHTML = `
+                    <h3 class="text-2xl mb-4 text-[#0ff]">${project.name}</h3>
+                    <p class="mb-4">${project.description}</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        ${project.tags.map(tag => `<span class="bg-[#ff00ff] text-black px-2 py-1 rounded">${tag}</span>`).join('')}
+                    </div>
+                    <div class="flex gap-4">
+                        <a href="${project.github}" class="neu-border bg-[#0ff] text-black px-4 py-2">GitHub</a>
+                        <a href="${project.demo}" class="neu-border bg-[#ff00ff] text-black px-4 py-2">Demo</a>
+                    </div>
+                `;
+                projectsContainer.appendChild(card);
+            });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', initProjects);
     </script>
 </body>
 </html>
