@@ -86,12 +86,25 @@
     </style>
 </head>
 <body class="bg-[#0a0a0a] text-white">
-    <!-- Marquee Text -->
-    <div class="overflow-hidden bg-[#1f1f1f] text-black py-2">
-        <div class="marquee text-xl font-['Press_Start_2P']">
-            >> i am become dev, destroyer of bugs >> Code. Sleep. Win. Repeat. >> ERROR 404 motivation not found >>
-        </div>
+<!-- Marquee Text -->
+<div class="overflow-hidden bg-[#1f1f1f] text-black py-2">
+    <div class="marquee text-xl font-['Press_Start_2P'] text-[#00ff00]">
+        >> i am become dev, destroyer of bugs >> Code. Sleep. Win. Repeat. >> ERROR 404 motivation not found >>
     </div>
+</div>
+
+<style>
+    @keyframes marquee {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(-100%); }
+    }
+
+    .marquee {
+        white-space: nowrap;
+        animation: marquee 20s linear infinite;
+    }
+</style>
+
 
     <!-- Hero Section -->
     <div class="container mx-auto px-4 py-20 text-center">
